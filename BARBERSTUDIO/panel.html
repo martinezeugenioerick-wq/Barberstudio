@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BARBERSTUDIO | Panel</title>
+
+<link rel="stylesheet" href="panel.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+.productos-form{
+    max-width:700px;
+    background:#151515;
+    padding:25px;
+    border-radius:15px;
+    margin-bottom:30px;
+}
+
+.productos-form input,
+.productos-form textarea,
+.productos-form select{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #444;
+    background:#222;
+    color:white;
+}
+
+.productos-form textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.productos-form button{
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    background:#d4af37;
+    color:#111;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.productos-form button:hover{
+    opacity:.85;
+}
+
+#listaProductos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+}
+
+.producto-card{
+    background:#151515;
+    border:1px solid #333;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.producto-card img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    display:block;
+}
+
+.producto-info{
+    padding:18px;
+}
+
+.producto-info h3{
+    margin:0 0 8px;
+}
+
+.producto-precio{
+    color:#d4af37;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.producto-descripcion{
+    color:#ccc;
+    margin:10px 0;
+}
+
+.producto-disponible{
+    color:#5ee65e;
+    font-weight:bold;
+}
+
+.producto-agotado{
+    color:#ff6666;
+    font-weight:bold;
+}
+
+.producto-botones{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+}
+
+.producto-botones button{
+    flex:1;
+    padding:9px;
+    border:none;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-editar{
+    background:#d4af37;
+    color:#111;
+}
+
+.btn-eliminar{
+    background:#b3261e;
+    color:white;
+}
+
+.btn-disponible{
+    background:#333;
+    color:white;
+}
+
+#cancelarEdicion{
+    background:#555;
+    color:white;
+    display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     MENU LATERAL
+========================= -->
+
+<div class="sidebar">
+
+<div class="logo">
+💈 BARBERSTUDIO
+</div>
+
+<button onclick="mostrar('dashboard')">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</button>
+
+<button onclick="mostrar('galeria')">
+<i class="fa-solid fa-images"></i>
+Galería
+</button>
+
+<!-- NUEVO -->
+
+<button onclick="mostrar('productos')">
+<i class="fa-solid fa-box"></i>
+Productos
+</button>
+
+<button onclick="mostrar('citas')">
+<i class="fa-solid fa-calendar"></i>
+Citas
+</button>
+
+<button onclick="mostrar('precios')">
+<i class="fa-solid fa-dollar-sign"></i>
+Precios
+</button>
+
+<button onclick="mostrar('opiniones')">
+<i class="fa-solid fa-star"></i>
+Opiniones
+</button>
+
+<button onclick="mostrar('configuracion')">
+<i class="fa-solid fa-gear"></i>
+Configuración
+</button>
+
+</div>
+
+
+<!-- =========================
+     CONTENIDO
+========================= -->
+
+<div class="contenido">
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard" class="pagina activa">
+
+<h1>Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+<h2 id="totalFotos">0</h2>
+<p>Trabajos</p>
+</div>
+
+<div class="card">
+<h2 id="totalCitas">0</h2>
+<p>Citas</p>
+</div>
+
+<div class="card">
+<h2 id="totalOpiniones">0</h2>
+<p>Opiniones</p>
+</div>
+
+<div class="card">
+<h2 id="totalServicios">0</h2>
+<p>Servicios</p>
+</div>
+
+<div class="card">
+<h2 id="totalProductos">0</h2>
+<p>Productos</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     GALERIA
+========================= -->
+
+<section id="galeria" class="pagina">
+
+<h1>Galería</h1>
+
+<input
+type="text"
+id="nombre"
+placeholder="Nombre del corte">
+
+<select id="categoria">
+
+<option>Fade</option>
+<option>Taper</option>
+<option>Barba</option>
+<option>Diseño</option>
+
+</select>
+
+<input
+type="file"
+id="foto"
+accept="image/*">
+
+<button onclick="guardarCorte()">
+Subir Foto
+</button>
+
+<div id="listaCortes"></div>
+
+</section>
+
+
+<!-- =========================
+     PRODUCTOS
+========================= -->
+
+<section id="productos" class="pagina">
+
+<h1>Productos</h1>
+
+<p>
+Administra aquí las ceras, pomadas y productos que vendes
+directamente en BARBERSTUDIO.
+</p>
+
+
+<!-- FORMULARIO -->
+
+<div class="productos-form">
+
+<h2 id="tituloFormularioProducto">
+Agregar producto
+</h2>
+
+<input
+type="text"
+id="productoNombre"
+placeholder="Nombre del producto">
+
+
+<input
+type="number"
+id="productoPrecio"
+placeholder="Precio"
+step="0.01"
+min="0">
+
+
+<textarea
+id="productoDescripcion"
+placeholder="Descripción del producto"></textarea>
+
+
+<input
+type="file"
+id="productoImagen"
+accept="image/*">
+
+
+<select id="productoDisponible">
+
+<option value="true">
+Disponible
+</option>
+
+<option value="false">
+Agotado
+</option>
+
+</select>
+
+
+<button onclick="guardarProducto()">
+<i class="fa-solid fa-plus"></i>
+Guardar producto
+</button>
+
+
+<button
+id="cancelarEdicion"
+onclick="cancelarEdicionProducto()">
+
+Cancelar edición
+
+</button>
+
+</div>
+
+
+<!-- LISTA -->
+
+<h2>Productos publicados</h2>
+
+<div id="listaProductos">
+
+<p>
+Cargando productos...
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     CITAS
+========================= -->
+
+<section id="citas" class="pagina">
+
+<h1>Citas</h1>
+
+<div id="listaCitas"></div>
+
+</section>
+
+
+<!-- =========================
+     PRECIOS
+========================= -->
+
+<section id="precios" class="pagina">
+
+<h1>Precios</h1>
+
+<div id="listaPrecios"></div>
+
+</section>
+
+
+<!-- =========================
+     OPINIONES
+========================= -->
+
+<section id="opiniones" class="pagina">
+
+<h1>Opiniones</h1>
+
+<div id="listaOpiniones"></div>
+
+</section>
+
+
+<!-- =========================
+     CONFIGURACION
+========================= -->
+
+<section id="configuracion" class="pagina">
+
+<h1>Configuración</h1>
+
+<input
+type="text"
+id="whatsapp"
+placeholder="WhatsApp">
+
+<input
+type="text"
+id="instagram"
+placeholder="Instagram">
+
+<button>
+Guardar Configuración
+</button>
+
+</section>
+
+</div>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="config.js"></script>
+
+<script src="panel.js"></script>
+
+
+<!-- =========================
+     SISTEMA DE PRODUCTOS
+========================= -->
+
+<script>
+
+let productoEditando = null;
+
+
+/* =========================
+   MOSTRAR SECCIONES
+========================= */
+
+function mostrar(id){
+
+    document.querySelectorAll(".pagina").forEach(function(seccion){
+
+        seccion.classList.remove("activa");
+
+    });
+
+    const pagina = document.getElementById(id);
+
+    if(pagina){
+
+        pagina.classList.add("activa");
+
+    }
+
+    if(id === "productos"){
+
+        cargarProductos();
+
+    }
+
+}
+
+
+/* =========================
+   CARGAR PRODUCTOS
+========================= */
+
+async function cargarProductos(){
+
+    const contenedor =
+        document.getElementById("listaProductos");
+
+    if(!window.db){
+
+        contenedor.innerHTML =
+        "<p>No se encontró la conexión con Supabase.</p>";
+
+        return;
+
+    }
+
+
+    const { data, error } =
+        await window.db
+        .from("productos")
+        .select("*")
+        .order("id", { ascending:false });
+
+
+    if(error){
+
+        console.error(error);
+
+        contenedor.innerHTML =
+        "<p>Error al cargar productos.</p>";
+
+        return;
+
+    }
+
+
+    document.getElementById("totalProductos").textContent =
+        data.length;
+
+
+    if(data.length === 0){
+
+        contenedor.innerHTML =
+        "<p>Aún no tienes productos publicados.</p>";
+
+        return;
+
+    }
+
+
+    contenedor.innerHTML = "";
+
+
+    data.forEach(function(producto){
+
+        const card =
+        document.createElement("div");
+
+        card.className =
+        "producto-card";
+
+
+        const estado =
+        producto.disponible
+        ? `<span class="producto-disponible">
+           Disponible
+           </span>`
+        : `<span class="producto-agotado">
+           Agotado
+           </span>`;
+
+
+        card.innerHTML = `
+
+        <img
+        src="${producto.imagen || 'img/logo.jpeg'}"
+        alt="${producto.nombre}">
+
+        <div class="producto-info">
+
+            <h3>
+                ${producto.nombre}
+            </h3>
+
+            <div class="producto-precio">
+                $${Number(producto.precio).toFixed(2)}
+            </div>
+
+            <p class="producto-descripcion">
+                ${producto.descripcion || ""}
+            </p>
+
+            ${estado}
+
+            <div class="producto-botones">
+
+                <button
+                class="btn-editar"
+                onclick='editarProducto(${JSON.stringify(producto)})'>
+
+                    <i class="fa-solid fa-pen"></i>
+                    Editar
+
+                </button>
+
+                <button
+                class="btn-eliminar"
+                onclick="eliminarProducto(${producto.id})">
+
+                    <i class="fa-solid fa-trash"></i>
+                    Eliminar
+
+                </button>
+
+            </div>
+
+        </div>
+        `;
+
+
+        contenedor.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================
+   GUARDAR PRODUCTO
+========================= */
+
+async function guardarProducto(){
+
+    if(!window.db){
+
+        alert("Supabase no está conectado.");
+
+        return;
+
+    }
+
+
+    const nombre =
+        document.getElementById("productoNombre")
+        .value.trim();
+
+
+    const precio =
+        document.getElementById("productoPrecio")
+        .value;
+
+
+    const descripcion =
+        document.getElementById("productoDescripcion")
+        .value.trim();
+
+
+    const disponible =
+        document.getElementById("productoDisponible")
+        .value === "true";
+
+
+    const archivo =
+        document.getElementById("productoImagen")
+        .files[0];
+
+
+    if(!nombre){
+
+        alert("Escribe el nombre del producto.");
+
+        return;
+
+    }
+
+
+    if(!precio){
+
+        alert("Escribe el precio.");
+
+        return;
+
+    }
+
+
+    /* =========================
+       EDITAR
+    ========================= */
+
+    if(productoEditando){
+
+        let imagen =
+            productoEditando.imagen;
+
+
+        if(archivo){
+
+            imagen =
+            await subirImagenProducto(archivo);
+
+            if(!imagen){
+
+                return;
+
+            }
+
+        }
+
+
+        const { error } =
+            await window.db
+            .from("productos")
+            .update({
+
+                nombre: nombre,
+
+                precio: Number(precio),
+
+                descripcion: descripcion,
+
+                imagen: imagen,
+
+                disponible: disponible
+
+            })
+            .eq("id", productoEditando.id);
+
+
+        if(error){
+
+            console.error(error);
+
+            alert("No se pudo actualizar el producto.");
+
+            return;
+
+        }
+
+
+        alert("Producto actualizado correctamente.");
+
+        cancelarEdicionProducto();
+
+        cargarProductos();
+
+        return;
+
+    }
+
+
+    /* =========================
+       NUEVO PRODUCTO
+    ========================= */
+
+    if(!archivo){
+
+        alert("Selecciona una foto del producto.");
+
+        return;
+
+    }
+
+
+    const imagen =
+        await subirImagenProducto(archivo);
+
+
+    if(!imagen){
+
+        return;
+
+    }
+
+
+    const { error } =
+        await window.db
+        .from("productos")
+        .insert({
+
+            nombre: nombre,
+
+            precio: Number(precio),
+
+            descripcion: descripcion,
+
+            imagen: imagen,
+
+            disponible: disponible
+
+        });
+
+
+    if(error){
+
+        console.error(error);
+
+        alert("No se pudo guardar el producto.");
+
+        return;
+
+    }
+
+
+    alert("Producto agregado correctamente.");
+
+
+    limpiarFormulario();
+
+    cargarProductos();
+
+}
+
+
+/* =========================
+   SUBIR IMAGEN
+========================= */
+
+async function subirImagenProducto(archivo){
+
+    try{
+
+        const extension =
+            archivo.name.split(".").pop();
+
+
+        const nombreArchivo =
+            "productos/" +
+            Date.now() +
+            "-" +
+            Math.random()
+            .toString(36)
+            .substring(2) +
+            "." +
+            extension;
+
+
+        /*
+        Usamos el bucket "cortes"
+        que ya tienes en Supabase.
+        */
+
+        const { error } =
+            await window.db.storage
+            .from("cortes")
+            .upload(
+                nombreArchivo,
+                archivo,
+                {
+                    cacheControl:"3600",
+                    upsert:false
+                }
+            );
+
+
+        if(error){
+
+            console.error(error);
+
+            alert(
+            "No se pudo subir la imagen. Revisa el Storage de Supabase."
+            );
+
+            return null;
+
+        }
+
+
+        const { data } =
+            window.db.storage
+            .from("cortes")
+            .getPublicUrl(nombreArchivo);
+
+
+        return data.publicUrl;
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Ocurrió un error al subir la imagen.");
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================
+   EDITAR PRODUCTO
+========================= */
+
+function editarProducto(producto){
+
+    productoEditando =
+        producto;
+
+
+    document.getElementById("productoNombre")
+    .value =
+        producto.nombre || "";
+
+
+    document.getElementById("productoPrecio")
+    .value =
+        producto.precio || "";
+
+
+    document.getElementById("productoDescripcion")
+    .value =
+        producto.descripcion || "";
+
+
+    document.getElementById("productoDisponible")
+    .value =
+        producto.disponible
+        ? "true"
+        : "false";
+
+
+    document.getElementById("tituloFormularioProducto")
+    .textContent =
+        "Editar producto";
+
+
+    document.getElementById("cancelarEdicion")
+    .style.display =
+        "inline-block";
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================
+   CANCELAR EDICION
+========================= */
+
+function cancelarEdicionProducto(){
+
+    productoEditando =
+        null;
+
+
+    limpiarFormulario();
+
+
+    document.getElementById(
+        "tituloFormularioProducto"
+    ).textContent =
+        "Agregar producto";
+
+
+    document.getElementById(
+        "cancelarEdicion"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================
+   LIMPIAR FORMULARIO
+========================= */
+
+function limpiarFormulario(){
+
+    document.getElementById(
+        "productoNombre"
+    ).value = "";
+
+
+    document.getElementById(
+        "productoPrecio"
+    ).value = "";
+
+
+    document.getElementById(
+        "productoDescripcion"
+    ).value = "";
+
+
+    document.getElementById(
+        "productoImagen"
+    ).value = "";
+
+
+    document.getElementById(
+        "productoDisponible"
+    ).value = "true";
+
+}
+
+
+/* =========================
+   ELIMINAR PRODUCTO
+========================= */
+
+async function eliminarProducto(id){
+
+    const confirmar =
+        confirm(
+        "¿Seguro que quieres eliminar este producto?"
+        );
+
+
+    if(!confirmar){
+
+        return;
+
+    }
+
+
+    const { error } =
+        await window.db
+        .from("productos")
+        .delete()
+        .eq("id", id);
+
+
+    if(error){
+
+        console.error(error);
+
+        alert("No se pudo eliminar el producto.");
+
+        return;
+
+    }
+
+
+    alert("Producto eliminado.");
+
+    cargarProductos();
+
+}
+
+
+/* =========================
+   CARGAR AL INICIAR
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        cargarProductos();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

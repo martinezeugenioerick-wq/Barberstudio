@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Administrador | BARBERSTUDIO</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+<div class="login-admin">
+
+<h1>BARBERSTUDIO</h1>
+
+<h2>Panel de Administración</h2>
+
+<input type="password" id="clave" placeholder="Contraseña">
+
+<button onclick="entrar()">
+
+Ingresar
+
+</button>
+
+<p id="error"></p>
+
+</div>
+
+<script>
+
+function entrar(){
+
+let clave=document.getElementById("clave").value;
+
+if(clave=="barber123"){
+
+window.location="panel.html";
+
+}else{
+
+document.getElementById("error").innerHTML="Contraseña incorrecta";
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
