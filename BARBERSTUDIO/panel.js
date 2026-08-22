@@ -152,7 +152,10 @@ async function guardarCorte(){
 
     .from("cortes")
 
-    .upload(nombreArchivo,archivo);
+    .upload(nombreArchivo, archivo, {
+    upsert: true,
+    contentType: archivo.type
+    });
 
     if(errorSubida){
     alert(
