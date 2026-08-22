@@ -2,87 +2,46 @@
 // CARGAR PRECIOS
 // ==========================
 
-async function cargarPrecios(){
+async function cargarPrecios() {
+
+    if (!window.db) {
+        console.error("Supabase no está conectado.");
+        return;
+    }
 
     const { data, error } = await window.db
         .from("precios")
         .select("*")
-        .order("id");
+        .order("id", { ascending: true });
 
-    if(error){
-        console.log(error);
+    if (error) {
+        console.error("Error cargando precios:", error);
         return;
     }
 
     const lista = document.getElementById("listaPrecios");
 
+    if (!lista) {
+        console.warn("No existe el elemento #listaPrecios");
+        return;
+    }
+
     lista.innerHTML = "";
 
-    data.forEach(item=>{
+    if (!data || data.length === 0) {
+        lista.innerHTML = "<p>No hay precios registrados.</p>";
+        return;
+    }
+
+    data.forEach(item => {
 
         lista.innerHTML += `
+            <div class="precio-card">
 
-        <div class="precio-card">
+                <h3>${item.servicio ?? ""}</h3>
 
-            <h3>${item.servicio}</h3>
+                <h2>$${item.precio ?? "0"}</h2>
 
-            <h2>$${item.precio}</h2>
-
-        </div>
-
-        `;
-
-    });
-
-}
-
-// ==========================
-// CARGAR GALERÍA
-// ==========================
-
-async function cargarGaleria() {
-
-    console.log("Cargando cortes...");
-
-    const { data, error } = await window.db
-        .from("cortes")
-        .select("*")
-        .order("id", { ascending: false });
-
-    console.log("Cortes encontrados:", data);
-    console.log("Error:", error);
-
-    if (error) {
-        console.error("Error cargando cortes:", error);
-        return;
-    }
-
-    const galeria = document.getElementById("galeriaCortes");
-
-    if (!galeria) {
-        console.error("No existe el elemento galeriaCortes");
-        return;
-    }
-
-    galeria.innerHTML = "";
-
-    if (!data || data.length === 0) {
-        galeria.innerHTML = "<p>No hay cortes registrados.</p>";
-        return;
-    }
-
-    data.forEach(corte => {
-
-        galeria.innerHTML += `
-            <div class="foto">
-                <img 
-                    src="${corte.imagen}" 
-                    alt="${corte.nombre}"
-                    style="width:100%;"
-                >
-
-                <h3>${corte.nombre}</h3>
-                <p>${corte.categoria}</p>
             </div>
         `;
 
@@ -90,169 +49,365 @@ async function cargarGaleria() {
 
 }
 
+
 // ==========================
-// MODAL IMAGEN
+// CARGAR GALERÍA DE CORTES
 // ==========================
 
-function abrirImagen(imagen){
+async function cargarGaleria() {
 
-    document.getElementById("modalImagen").style.display="flex";
+    console.log("Cargando cortes...");
 
-    document.getElementById("imagenGrande").src=imagen;
+    if (!window.db) {
+        console.error("Supabase no está conectado.");
+        return;
+    }
+
+    const { data, error } = await window.db
+        .from("cortes")
+        .select("*")
+        .order("id", { ascending: false });
+
+    if (error) {
+        console.error("Error cargando cortes:", error);
+        return;
+    }
+
+    console.log("Cortes encontrados:", data);
+
+    const galeria = document.getElementById("galeriaCortes");
+
+    if (!galeria) {
+        console.error("No existe el elemento #galeriaCortes");
+        return;
+    }
+
+    galeria.innerHTML = "";
+
+    if (!data || data.length === 0) {
+
+        galeria.innerHTML = `
+            <p>No hay cortes registrados.</p>
+        `;
+
+        return;
+    }
+
+    data.forEach(corte => {
+
+        const imagen = corte.imagen || "";
+        const nombre = corte.nombre || "Corte";
+        const categoria = corte.categoria || "";
+
+        galeria.innerHTML += `
+            <div class="foto">
+
+                <img
+                    src="${imagen}"
+                    alt="${nombre}"
+                    loading="lazy"
+                    onclick="abrirImagen('${imagen}')"
+                    onerror="this.style.display='none'"
+                >
+
+                <h3>${nombre}</h3>
+
+                <p>${categoria}</p>
+
+            </div>
+        `;
+
+    });
+
+    console.log("Galería cargada correctamente.");
 
 }
 
-document.getElementById("cerrarModal").onclick=function(){
 
-    document.getElementById("modalImagen").style.display="none";
+// ==========================
+// MODAL DE IMAGEN
+// ==========================
+
+function abrirImagen(imagen) {
+
+    const modal = document.getElementById("modalImagen");
+    const imagenGrande = document.getElementById("imagenGrande");
+
+    if (!modal || !imagenGrande) {
+        console.warn("No existe el modal de imagen.");
+        return;
+    }
+
+    imagenGrande.src = imagen;
+    modal.style.display = "flex";
 
 }
+
+
+// ==========================
+// CERRAR MODAL
+// ==========================
+
+function cerrarModal() {
+
+    const modal = document.getElementById("modalImagen");
+
+    if (modal) {
+        modal.style.display = "none";
+    }
+
+}
+
+
+// ==========================
+// CONFIGURAR BOTÓN DEL MODAL
+// ==========================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const cerrar = document.getElementById("cerrarModal");
+
+    if (cerrar) {
+        cerrar.addEventListener("click", cerrarModal);
+    }
+
+});
+
 
 // ==========================
 // CARGAR OPINIONES
 // ==========================
 
-async function cargarOpiniones(){
+async function cargarOpiniones() {
+
+    if (!window.db) {
+        console.error("Supabase no está conectado.");
+        return;
+    }
 
     const { data, error } = await window.db
         .from("opiniones")
         .select("*")
-        .order("id",{ascending:false});
+        .order("id", { ascending: false });
 
-    if(error){
-        console.log(error);
+    if (error) {
+        console.error("Error cargando opiniones:", error);
         return;
     }
 
     const lista = document.getElementById("listaOpiniones");
 
+    if (!lista) {
+        console.warn("No existe el elemento #listaOpiniones");
+        return;
+    }
+
     lista.innerHTML = "";
 
-    data.forEach(opinion=>{
+    if (!data || data.length === 0) {
+
+        lista.innerHTML = `
+            <p>No hay opiniones todavía.</p>
+        `;
+
+        return;
+    }
+
+    data.forEach(opinion => {
 
         lista.innerHTML += `
+            <div class="card">
 
-        <div class="card">
+                <h3>${opinion.nombre ?? "Cliente"}</h3>
 
-            <h3>${opinion.nombre}</h3>
+                <p>⭐ ${opinion.calificacion ?? 5}</p>
 
-            <p>⭐ ${opinion.calificacion}</p>
+                <p>${opinion.comentario ?? ""}</p>
 
-            <p>${opinion.comentario}</p>
-
-        </div>
-
+            </div>
         `;
 
     });
 
 }
 
+
 // ==========================
 // GUARDAR CITA
 // ==========================
 
-document.getElementById("formCita").addEventListener("submit", async function(e){
+document.addEventListener("DOMContentLoaded", () => {
 
-    e.preventDefault();
+    const formCita = document.getElementById("formCita");
 
-    const nombre = document.getElementById("nombre").value;
-    const telefono = document.getElementById("telefono").value;
-    const servicio = document.getElementById("servicio").value;
-    const fecha = document.getElementById("fecha").value;
-    const hora = document.getElementById("hora").value;
-
-    const { error } = await window.db
-        .from("citas")
-        .insert([{
-            nombre,
-            telefono,
-            servicio,
-            fecha,
-            hora,
-            estado:"Pendiente"
-        }]);
-
-    if(error){
-        alert("Error al guardar la cita");
-        console.log(error);
+    if (!formCita) {
+        console.warn("No existe el formulario #formCita");
         return;
     }
 
-    alert("✅ Cita enviada correctamente");
+    formCita.addEventListener("submit", async function (e) {
 
-    document.getElementById("formCita").reset();
+        e.preventDefault();
+
+        if (!window.db) {
+            alert("Error: Supabase no está conectado.");
+            return;
+        }
+
+        const nombre = document.getElementById("nombre")?.value || "";
+        const telefono = document.getElementById("telefono")?.value || "";
+        const servicio = document.getElementById("servicio")?.value || "";
+        const fecha = document.getElementById("fecha")?.value || "";
+        const hora = document.getElementById("hora")?.value || "";
+
+        const { error } = await window.db
+            .from("citas")
+            .insert([{
+                nombre,
+                telefono,
+                servicio,
+                fecha,
+                hora,
+                estado: "Pendiente"
+            }]);
+
+        if (error) {
+
+            console.error("Error guardando cita:", error);
+
+            alert("Error al guardar la cita.");
+
+            return;
+        }
+
+        alert("✅ Cita enviada correctamente.");
+
+        formCita.reset();
 
     });
 
-}
+});
+
 
 // ==========================
 // INICIAR
 // ==========================
 
-window.onload = function(){
+window.addEventListener("load", () => {
+
+    console.log("Iniciando Barberstudio...");
 
     cargarPrecios();
     cargarGaleria();
     cargarOpiniones();
 
-};
-
-new Swiper(".heroSwiper",{
-
-    loop:true,
-
-    autoplay:{
-        delay:3500,
-        disableOnInteraction:false
-    },
-
-    effect:"fade",
-
-    speed:1000
-
 });
 
-const btnArriba = document.getElementById("btnArriba");
 
-window.addEventListener("scroll",()=>{
+// ==========================
+// SWIPER
+// ==========================
 
-    if(window.scrollY > 300){
+window.addEventListener("load", () => {
 
-        btnArriba.style.display="block";
+    if (typeof Swiper !== "undefined") {
 
-    }else{
+        const hero = document.querySelector(".heroSwiper");
 
-        btnArriba.style.display="none";
+        if (hero) {
+
+            new Swiper(".heroSwiper", {
+
+                loop: true,
+
+                autoplay: {
+                    delay: 3500,
+                    disableOnInteraction: false
+                },
+
+                effect: "fade",
+
+                speed: 1000
+
+            });
+
+            console.log("Swiper iniciado correctamente.");
+
+        }
+
+    } else {
+
+        console.warn(
+            "Swiper no está cargado. El sitio continuará funcionando sin el slider."
+        );
 
     }
 
 });
 
-btnArriba.addEventListener("click",()=>{
 
-    window.scrollTo({
+// ==========================
+// BOTÓN IR ARRIBA
+// ==========================
 
-        top:0,
+window.addEventListener("DOMContentLoaded", () => {
 
-        behavior:"smooth"
+    const btnArriba = document.getElementById("btnArriba");
+
+    if (!btnArriba) {
+        console.warn("No existe el botón #btnArriba");
+        return;
+    }
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 300) {
+
+            btnArriba.style.display = "block";
+
+        } else {
+
+            btnArriba.style.display = "none";
+
+        }
+
+    });
+
+    btnArriba.addEventListener("click", () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
     });
 
 });
 
+
+// ==========================
+// SERVICE WORKER
+// ==========================
+
 if ("serviceWorker" in navigator) {
 
     window.addEventListener("load", () => {
 
-        navigator.serviceWorker.register("sw.js")
-        .then(() => {
+        navigator.serviceWorker
+            .register("sw.js")
+            .then(() => {
 
-            console.log("Service Worker instalado");
+                console.log("Service Worker instalado.");
 
-        })
-        .catch(err => console.log(err));
+            })
+            .catch(error => {
+
+                console.warn(
+                    "No se pudo instalar el Service Worker:",
+                    error
+                );
+
+            });
 
     });
 
