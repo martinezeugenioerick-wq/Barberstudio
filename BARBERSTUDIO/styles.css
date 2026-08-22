@@ -1,503 +1,158 @@
-/*=========================
-GENERAL
-=========================*/
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-scroll-behavior:smooth;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+    scroll-behavior:smooth;
+}
+
+html{
+    overflow-x:hidden;
 }
 
 body{
-background:#0d0d0d;
-color:white;
+    background:#0d0d0d;
+    color:white;
+    overflow-x:hidden;
 }
 
 section{
-padding:90px 10%;
+    padding:90px 10%;
 }
 
-/*=========================
-MENÚ
-=========================*/
+
+/* =========================
+   MENÚ
+========================= */
 
 header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-z-index:1000;
-background:rgba(0,0,0,.75);
-backdrop-filter:blur(10px);
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(10px);
 }
 
 nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 10%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 10%;
 }
 
 .logo img{
-    width: 55px;
-    height: 55px;
-    object-fit: contain;
-    display: block;
+    width:55px;
+    height:55px;
+    object-fit:contain;
+    display:block;
 }
 
 nav ul{
-display:flex;
-gap:35px;
-list-style:none;
+    display:flex;
+    gap:35px;
+    list-style:none;
 }
 
 nav ul li a{
-text-decoration:none;
-color:white;
-transition:.3s;
+    text-decoration:none;
+    color:white;
+    transition:.3s;
 }
 
 nav ul li a:hover{
-color:#d4af37;
+    color:#d4af37;
 }
 
 .btn{
-background:#d4af37;
-color:black;
-padding:12px 28px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-transition:.3s;
+    background:#d4af37;
+    color:#000;
+    padding:12px 28px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
 }
 
 .btn:hover{
-transform:scale(1.05);
+    transform:scale(1.05);
 }
 
-/*=========================
-PORTADA
-=========================*/
+
+/* =========================
+   PORTADA
+========================= */
 
 .hero{
-
-height:100vh;
-background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)), url("img/portada.jpeg");
-
-background-size:cover;
-
-background-position:center;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-text-align:center;
-
+    position:relative;
+    height:100vh;
+    min-height:650px;
+    background:
+        linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+        url("img/portada.jpeg");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    overflow:hidden;
 }
 
 .overlay{
-
-background:rgba(0,0,0,.65);
-
-width:100%;
-
-height:100%;
-
-display:flex;
-
-flex-direction:column;
-
-justify-content:center;
-
-align-items:center;
-
+    position:relative;
+    z-index:2;
+    background:rgba(0,0,0,.65);
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 }
 
 .hero h1{
-
-font-size:75px;
-
-color:#d4af37;
-
+    font-size:75px;
+    color:#d4af37;
+    line-height:1.1;
 }
 
 .hero h3{
-
-font-size:35px;
-
-margin-top:15px;
-
+    font-size:35px;
+    margin-top:15px;
 }
 
 .hero p{
-
-margin-top:20px;
-
-font-size:20px;
-
+    margin-top:20px;
+    font-size:20px;
 }
 
 .hero-btn{
-
-margin-top:35px;
-
-padding:18px 45px;
-
-background:#d4af37;
-
-border-radius:35px;
-
-color:black;
-
-font-weight:bold;
-
-text-decoration:none;
-
-transition:.3s;
-
+    margin-top:35px;
+    padding:18px 45px;
+    background:#d4af37;
+    border-radius:35px;
+    color:#000;
+    font-weight:bold;
+    text-decoration:none;
+    transition:.3s;
 }
 
 .hero-btn:hover{
-
-transform:translateY(-6px);
-
+    transform:translateY(-6px);
 }
 
-/*=========================
-ESTADÍSTICAS
-=========================*/
 
-.estadisticas{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
-gap:30px;
-
-background:#111;
-
-}
-
-.stat{
-
-background:#1c1c1c;
-
-padding:35px;
-
-text-align:center;
-
-border-radius:18px;
-
-border:1px solid rgba(212,175,55,.35);
-
-}
-
-.stat h2{
-
-font-size:45px;
-
-color:#d4af37;
-
-margin-bottom:10px;
-
-}
-
-/*=========================
-SERVICIOS
-=========================*/
-
-.servicios h2{
-
-text-align:center;
-
-font-size:42px;
-
-margin-bottom:50px;
-
-color:#d4af37;
-
-}
-
-.cards{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-
-gap:25px;
-
-}
-
-.card{
-
-background:#191919;
-
-padding:35px;
-
-border-radius:18px;
-
-text-align:center;
-
-transition:.3s;
-
-border:1px solid rgba(212,175,55,.25);
-
-}
-
-.card:hover{
-
-transform:translateY(-10px);
-
-box-shadow:0 0 25px rgba(212,175,55,.25);
-
-}
-
-.card h3{
-
-color:#d4af37;
-
-font-size:28px;
-
-margin-bottom:15px;
-
-}
-
-/*=========================
-PRECIOS
-=========================*/
-
-.precios h2{
-text-align:center;
-font-size:42px;
-color:#d4af37;
-margin-bottom:50px;
-}
-
-.precio-card{
-background:#1a1a1a;
-padding:30px;
-border-radius:15px;
-text-align:center;
-border:1px solid rgba(212,175,55,.3);
-transition:.3s;
-}
-
-.precio-card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 20px rgba(212,175,55,.3);
-}
-
-.precio-card h3{
-color:#d4af37;
-margin-bottom:15px;
-}
-
-.precio-card h2{
-font-size:42px;
-}
-
-/*=========================
-GALERÍA
-=========================*/
-
-.galeria h2{
-text-align:center;
-font-size:42px;
-color:#d4af37;
-margin-bottom:50px;
-}
-
-.galeria-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
-gap:25px;
-margin-top:40px;
-}
-
-.galeria-grid img{
-width:100%;
-height:220px;
-object-fit:cover;
-border-radius:12px;
-cursor:pointer;
-transition:.3s;
-}
-
-.galeria-grid img:hover{
-transform:scale(1.05);
-}
-
-/*=========================
-MODAL
-=========================*/
-
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.95);
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.modal img{
-max-width:90%;
-max-height:90%;
-border-radius:15px;
-}
-
-#cerrarModal{
-position:absolute;
-top:30px;
-right:40px;
-font-size:45px;
-cursor:pointer;
-color:white;
-}
-
-/*=========================
-OPINIONES
-=========================*/
-
-.opiniones h2{
-text-align:center;
-font-size:42px;
-color:#d4af37;
-margin-bottom:40px;
-}
-
-/*=========================
-AGENDA
-=========================*/
-
-.agenda h2{
-text-align:center;
-font-size:42px;
-margin-bottom:40px;
-color:#d4af37;
-}
-
-form{
-max-width:700px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-input,
-select{
-padding:16px;
-border:none;
-border-radius:10px;
-background:#1a1a1a;
-color:white;
-font-size:16px;
-}
-
-form button{
-padding:18px;
-background:#d4af37;
-color:black;
-border:none;
-border-radius:10px;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-transition:.3s;
-}
-
-form button:hover{
-transform:scale(1.03);
-}
-
-/*=========================
-FOOTER
-=========================*/
-
-footer{
-background:#111;
-padding:40px;
-text-align:center;
-border-top:2px solid #d4af37;
-}
-
-footer h2{
-color:#d4af37;
-margin-bottom:15px;
-}
-
-/*=========================
-WHATSAPP
-=========================*/
-
-.whatsapp{
-position:fixed;
-right:25px;
-bottom:25px;
-width:65px;
-height:65px;
-background:#25D366;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:35px;
-color:white;
-text-decoration:none;
-box-shadow:0 0 20px rgba(0,0,0,.5);
-transition:.3s;
-}
-
-.whatsapp:hover{
-transform:scale(1.15);
-}
-
-/*=========================
-RESPONSIVE
-=========================*/
-
-@media(max-width:900px){
-
-nav{
-flex-direction:column;
-gap:20px;
-}
-
-nav ul{
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
-}
-
-.hero h1{
-font-size:48px;
-}
-
-.hero h3{
-font-size:24px;
-}
-
-section{
-padding:70px 25px;
-}
-
-}
+/* =========================
+   SWIPER
+========================= */
 
 .heroSwiper{
     position:absolute;
     inset:0;
-    z-index:-2;
+    z-index:0;
 }
 
 .heroSwiper img{
@@ -511,58 +166,108 @@ padding:70px 25px;
     position:absolute;
     inset:0;
     background:rgba(0,0,0,.65);
-    z-index:-1;
+    z-index:1;
 }
 
-#btnArriba{
-    position:fixed;
-    right:25px;
-    bottom:100px;
-    width:55px;
-    height:55px;
-    border:none;
-    border-radius:50%;
-    background:#d4af37;
-    color:#111;
-    font-size:22px;
-    cursor:pointer;
-    display:none;
+
+/* =========================
+   ESTADÍSTICAS
+========================= */
+
+.estadisticas{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+    background:#111;
+}
+
+.stat{
+    background:#1c1c1c;
+    padding:35px;
+    text-align:center;
+    border-radius:18px;
+    border:1px solid rgba(212,175,55,.35);
+}
+
+.stat h2{
+    font-size:45px;
+    color:#d4af37;
+    margin-bottom:10px;
+}
+
+
+/* =========================
+   SERVICIOS
+========================= */
+
+.servicios h2{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:50px;
+    color:#d4af37;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#191919;
+    padding:35px;
+    border-radius:18px;
+    text-align:center;
     transition:.3s;
-    z-index:999;
+    border:1px solid rgba(212,175,55,.25);
 }
 
-#btnArriba:hover{
-    transform:scale(1.1);
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 25px rgba(212,175,55,.25);
 }
 
-.foto{
+.card h3{
+    color:#d4af37;
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   PRECIOS
+========================= */
+
+.precios h2{
+    text-align:center;
+    font-size:42px;
+    color:#d4af37;
+    margin-bottom:50px;
+}
+
+.precio-card{
     background:#1a1a1a;
+    padding:30px;
     border-radius:15px;
-    overflow:hidden;
+    text-align:center;
     border:1px solid rgba(212,175,55,.3);
     transition:.3s;
 }
 
-.foto:hover{
-    transform:translateY(-5px);
+.precio-card:hover{
+    transform:translateY(-8px);
     box-shadow:0 0 20px rgba(212,175,55,.3);
 }
 
-.foto img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
-    cursor:pointer;
-}
-
-.foto h3{
+.precio-card h3{
     color:#d4af37;
-    padding:10px 15px 0;
+    margin-bottom:15px;
 }
 
-.foto p{
-    padding:0 15px 15px;
+.precio-card h2{
+    font-size:42px;
 }
+
 
 /* =========================
    PRODUCTOS
@@ -654,147 +359,689 @@ padding:70px 25px;
     color:#6ee08a;
 }
 
+
 /* =========================
-   ACCESO ADMINISTRADOR
+   GALERÍA
 ========================= */
 
-.btn-admin {
+.galeria h2{
+    text-align:center;
+    font-size:42px;
+    color:#d4af37;
+    margin-bottom:50px;
+}
 
-    position: fixed;
+.galeria-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
 
-    bottom: 20px;
+.foto{
+    background:#1a1a1a;
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid rgba(212,175,55,.3);
+    transition:.3s;
+}
 
-    left: 20px;
+.foto:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px rgba(212,175,55,.3);
+}
 
-    z-index: 9999;
+.foto img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    cursor:pointer;
+    display:block;
+}
 
-    background: rgba(0,0,0,0.75);
+.foto h3{
+    color:#d4af37;
+    padding:10px 15px 0;
+}
 
-    color: #d4af37;
+.foto p{
+    padding:0 15px 15px;
+}
 
-    border: 1px solid #d4af37;
 
-    padding: 9px 14px;
+/* =========================
+   MODAL
+========================= */
 
-    border-radius: 8px;
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.95);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    padding:20px;
+}
 
-    cursor: pointer;
+.modal img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:15px;
+    object-fit:contain;
+}
 
-    font-size: 13px;
+#cerrarModal{
+    position:absolute;
+    top:30px;
+    right:40px;
+    font-size:45px;
+    cursor:pointer;
+    color:white;
+}
+
+
+/* =========================
+   OPINIONES
+========================= */
+
+.opiniones h2{
+    text-align:center;
+    font-size:42px;
+    color:#d4af37;
+    margin-bottom:20px;
+}
+
+.opiniones-subtitulo{
+    text-align:center;
+    color:#aaa;
+    margin-bottom:35px;
+}
+
+.opinion-card{
+    background:#191919;
+    padding:25px;
+    margin:15px auto;
+    border-radius:15px;
+    border:1px solid rgba(212,175,55,.25);
+    max-width:800px;
+}
+
+.opinion-card h3{
+    color:#d4af37;
+}
+
+.estrellas{
+    margin:8px 0;
+}
+
+
+/* =========================
+   FORMULARIO OPINIÓN
+========================= */
+
+.formulario-opinion{
+    max-width:700px;
+    margin:40px auto 0;
+    background:#151515;
+    padding:30px;
+    border-radius:18px;
+    border:1px solid rgba(212,175,55,.25);
+}
+
+.formulario-opinion h3{
+    text-align:center;
+    color:#d4af37;
+    margin-bottom:20px;
+}
+
+textarea{
+    padding:16px;
+    border:none;
+    border-radius:10px;
+    background:#1a1a1a;
+    color:white;
+    font-size:16px;
+    resize:vertical;
+    min-height:120px;
+}
+
+
+/* =========================
+   AGENDA
+========================= */
+
+.agenda h2{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:40px;
+    color:#d4af37;
+}
+
+form{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+input,
+select{
+    padding:16px;
+    border:none;
+    border-radius:10px;
+    background:#1a1a1a;
+    color:white;
+    font-size:16px;
+    width:100%;
+}
+
+form button{
+    padding:18px;
+    background:#d4af37;
+    color:#000;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+form button:hover{
+    transform:scale(1.03);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#111;
+    padding:40px;
+    text-align:center;
+    border-top:2px solid #d4af37;
+}
+
+footer h2{
+    color:#d4af37;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+.whatsapp{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:65px;
+    height:65px;
+    background:#25D366;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:35px;
+    color:white;
+    text-decoration:none;
+    box-shadow:0 0 20px rgba(0,0,0,.5);
+    transition:.3s;
+    z-index:998;
+}
+
+.whatsapp:hover{
+    transform:scale(1.15);
+}
+
+
+/* =========================
+   BOTÓN ARRIBA
+========================= */
+
+#btnArriba{
+    position:fixed;
+    right:25px;
+    bottom:100px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#d4af37;
+    color:#111;
+    font-size:22px;
+    cursor:pointer;
+    display:none;
+    transition:.3s;
+    z-index:999;
+}
+
+#btnArriba:hover{
+    transform:scale(1.1);
+}
+
+
+/* =========================
+   ADMINISTRADOR
+========================= */
+
+.btn-admin{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    z-index:9999;
+    background:rgba(0,0,0,.75);
+    color:#d4af37;
+    border:1px solid #d4af37;
+    padding:9px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.login-admin{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:10000;
+    background:rgba(0,0,0,.75);
+    align-items:center;
+    justify-content:center;
+}
+
+.login-box{
+    width:90%;
+    max-width:380px;
+    background:#111;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    border:1px solid #d4af37;
+}
+
+.login-box h2{
+    color:#d4af37;
+    margin-bottom:10px;
+}
+
+.login-box p{
+    color:#ccc;
+}
+
+.login-box input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #444;
+    background:#222;
+    color:white;
+}
+
+.login-box > button:not(.cerrar-login){
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    background:#d4af37;
+    color:#111;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cerrar-login{
+    float:right;
+    background:none;
+    border:none;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:900px){
+
+    section{
+        padding:70px 20px;
+    }
+
+    nav{
+        padding:12px 20px;
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .logo img{
+        width:48px;
+        height:48px;
+    }
+
+    nav ul{
+        width:100%;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:8px 14px;
+    }
+
+    nav ul li a{
+        font-size:13px;
+    }
+
+    .btn{
+        padding:9px 20px;
+        font-size:13px;
+    }
+
+    .hero{
+        height:100svh;
+        min-height:600px;
+    }
+
+    .hero h1{
+        font-size:clamp(40px,10vw,55px);
+    }
+
+    .hero h3{
+        font-size:clamp(20px,5vw,28px);
+    }
+
+    .hero p{
+        font-size:15px;
+        padding:0 20px;
+        line-height:1.6;
+    }
+
+    .hero-btn{
+        padding:14px 28px;
+        font-size:15px;
+        margin-top:25px;
+    }
+
+    .estadisticas{
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+        padding:40px 15px;
+    }
+
+    .stat{
+        padding:20px 8px;
+    }
+
+    .stat h2{
+        font-size:28px;
+    }
+
+    .stat p{
+        font-size:12px;
+    }
+
+    .servicios h2,
+    .precios h2,
+    .galeria h2,
+    .opiniones h2,
+    .agenda h2{
+        font-size:30px;
+        margin-bottom:30px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+
+    .card{
+        padding:25px 18px;
+    }
+
+    .precio-card{
+        padding:25px 15px;
+    }
+
+    .precio-card h2{
+        font-size:35px;
+    }
+
+    .galeria-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+        margin-top:25px;
+    }
+
+    .foto img{
+        height:180px;
+    }
+
+    .foto h3{
+        font-size:16px;
+        padding:9px 10px 0;
+    }
+
+    .foto p{
+        font-size:13px;
+        padding:0 10px 12px;
+    }
+
+    .productos{
+        padding:60px 15px;
+    }
+
+    .seccion-titulo h2{
+        font-size:32px;
+    }
+
+    .seccion-titulo p{
+        font-size:14px;
+        padding:0 15px;
+    }
+
+    .productos-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .producto-card img{
+        height:180px;
+    }
+
+    .producto-info{
+        padding:14px;
+    }
+
+    .producto-info h3{
+        font-size:17px;
+    }
+
+    .producto-info .precio{
+        font-size:17px;
+    }
+
+    .producto-info .descripcion{
+        font-size:13px;
+        line-height:1.5;
+    }
+
+    .producto-disponibilidad{
+        font-size:11px;
+        padding:5px 9px;
+    }
+
+    .formulario-opinion{
+        width:100%;
+        padding:25px 18px;
+    }
+
+    form{
+        width:100%;
+        max-width:100%;
+        gap:15px;
+    }
+
+    input,
+    select,
+    textarea{
+        width:100%;
+        font-size:16px;
+    }
+
+    form button{
+        width:100%;
+        padding:15px;
+        font-size:16px;
+    }
+
+    footer{
+        padding:35px 20px;
+    }
+
+    footer p{
+        font-size:13px;
+    }
+
+    .whatsapp{
+        width:55px;
+        height:55px;
+        right:15px;
+        bottom:15px;
+        font-size:28px;
+    }
+
+    #btnArriba{
+        width:45px;
+        height:45px;
+        right:15px;
+        bottom:80px;
+        font-size:18px;
+    }
+
+    .btn-admin{
+        bottom:15px;
+        left:15px;
+        padding:8px 11px;
+        font-size:11px;
+    }
 
 }
 
 
-.login-admin {
+/* =========================
+   CELULARES PEQUEÑOS
+========================= */
 
-    display: none;
+@media(max-width:480px){
 
-    position: fixed;
+    section{
+        padding:60px 15px;
+    }
 
-    inset: 0;
+    nav{
+        padding:10px 12px;
+    }
 
-    z-index: 10000;
+    nav ul{
+        gap:6px 10px;
+    }
 
-    background: rgba(0,0,0,0.75);
+    nav ul li a{
+        font-size:11px;
+    }
 
-    align-items: center;
+    .btn{
+        padding:8px 17px;
+        font-size:12px;
+    }
 
-    justify-content: center;
+    .hero h1{
+        font-size:40px;
+    }
 
-}
+    .hero h3{
+        font-size:20px;
+    }
 
+    .hero p{
+        font-size:14px;
+    }
 
-.login-box {
+    .estadisticas{
+        gap:6px;
+        padding:30px 10px;
+    }
 
-    width: 90%;
+    .stat{
+        padding:16px 5px;
+    }
 
-    max-width: 380px;
+    .stat h2{
+        font-size:22px;
+    }
 
-    background: #111;
+    .stat p{
+        font-size:10px;
+    }
 
-    padding: 30px;
+    .servicios h2,
+    .precios h2,
+    .galeria h2,
+    .opiniones h2,
+    .agenda h2{
+        font-size:27px;
+    }
 
-    border-radius: 15px;
+    .galeria-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:9px;
+    }
 
-    text-align: center;
+    .foto img{
+        height:160px;
+    }
 
-    border: 1px solid #d4af37;
+    .productos-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:9px;
+    }
 
-}
+    .producto-card img{
+        height:160px;
+    }
 
+    .producto-info{
+        padding:11px;
+    }
 
-.login-box h2 {
+    .producto-info h3{
+        font-size:15px;
+    }
 
-    color: #d4af37;
+    .producto-info .precio{
+        font-size:16px;
+    }
 
-    margin-bottom: 10px;
+    .producto-info .descripcion{
+        font-size:12px;
+    }
 
-}
+    .hero-btn{
+        padding:13px 24px;
+        font-size:14px;
+    }
 
-
-.login-box p {
-
-    color: #ccc;
-
-}
-
-
-.login-box input {
-
-    width: 100%;
-
-    box-sizing: border-box;
-
-    padding: 12px;
-
-    margin: 8px 0;
-
-    border-radius: 8px;
-
-    border: 1px solid #444;
-
-    background: #222;
-
-    color: white;
-
-}
-
-
-.login-box > button:not(.cerrar-login) {
-
-    width: 100%;
-
-    padding: 12px;
-
-    margin-top: 10px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    background: #d4af37;
-
-    color: #111;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-
-.cerrar-login {
-
-    float: right;
-
-    background: none;
-
-    border: none;
-
-    color: white;
-
-    font-size: 25px;
-
-    cursor: pointer;
+    #cerrarModal{
+        top:15px;
+        right:20px;
+        font-size:38px;
+    }
 
 }
