@@ -155,12 +155,13 @@ async function guardarCorte(){
     .upload(nombreArchivo,archivo);
 
     if(errorSubida){
-
-        alert("Error al subir imagen");
-
-        console.log(errorSubida);
-
-        return;
+    alert(
+        "ERROR SUPABASE\n\n" +
+        "Mensaje: " + errorSubida.message +
+        "\nCódigo: " + errorSubida.statusCode
+    );
+    console.error(errorSubida);
+    return;
 
     }
 
