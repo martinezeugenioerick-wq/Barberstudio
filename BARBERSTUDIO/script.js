@@ -183,7 +183,9 @@ document.getElementById("formCita").addEventListener("submit", async function(e)
 
     document.getElementById("formCita").reset();
 
-});
+    });
+
+}
 
 // ==========================
 // INICIAR
