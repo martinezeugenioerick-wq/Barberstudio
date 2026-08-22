@@ -40,37 +40,50 @@ async function cargarPrecios(){
 // CARGAR GALERÍA
 // ==========================
 
-async function cargarGaleria(){
+async function cargarGaleria() {
+
+    console.log("Cargando cortes...");
 
     const { data, error } = await window.db
         .from("cortes")
         .select("*")
         .order("id", { ascending: false });
 
-    if(error){
-        console.log(error);
+    console.log("Cortes encontrados:", data);
+    console.log("Error:", error);
+
+    if (error) {
+        console.error("Error cargando cortes:", error);
         return;
     }
 
     const galeria = document.getElementById("galeriaCortes");
 
+    if (!galeria) {
+        console.error("No existe el elemento galeriaCortes");
+        return;
+    }
+
     galeria.innerHTML = "";
 
-    data.forEach(corte=>{
+    if (!data || data.length === 0) {
+        galeria.innerHTML = "<p>No hay cortes registrados.</p>";
+        return;
+    }
+
+    data.forEach(corte => {
 
         galeria.innerHTML += `
-        <div class="foto">
+            <div class="foto">
+                <img 
+                    src="${corte.imagen}" 
+                    alt="${corte.nombre}"
+                    style="width:100%;"
+                >
 
-            <img
-                src="${corte.imagen}"
-                alt="${corte.nombre}"
-                onclick="abrirImagen('${corte.imagen}')">
-
-            <h3>${corte.nombre}</h3>
-
-            <p>${corte.categoria}</p>
-
-        </div>
+                <h3>${corte.nombre}</h3>
+                <p>${corte.categoria}</p>
+            </div>
         `;
 
     });
